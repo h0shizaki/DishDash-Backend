@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 export class Database {
     databaseUrl : string;
     constructor(dataUrl?: string) {
-        this.databaseUrl = process.env.DATABASE_URL as string || dataUrl || ''
+        this.databaseUrl = dataUrl || process.env.DATABASE_URL as string || '' 
     }
 
     public async connect() {
@@ -14,5 +14,8 @@ export class Database {
         }catch(e){
             throw e;
         }
+    }
+    public getDatabaseUrl() {
+        return this.databaseUrl
     }
 }
