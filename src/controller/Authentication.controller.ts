@@ -13,8 +13,8 @@ export class AuthController {
     constructor() {
         this.router = Router() ;
         this.authService = new AuthService(); 
-        this.router.post('/', async(req,res)=>this.login(req,res))
-        this.router.post('/user', async(req,res)=>this.register(req,res))
+        this.router.post('/', async(req,res)=>{return this.login(req,res)})
+        this.router.post('/user', async(req,res)=>{return this.register(req,res)})
     }
 
     public getRouter() : Router {
