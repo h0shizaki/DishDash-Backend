@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Config from ".";
+import mongoose from 'mongoose'
+import Config from '.'
 
 export class Database {
     private databaseUrl: string
@@ -8,11 +8,11 @@ export class Database {
     }
 
     public async connect() {
-        try{
+        try {
             await mongoose.connect(this.databaseUrl)
-            console.log("Connected To Database");
-        }catch(e){
-            throw e;
+            console.log('Connected To Database')
+        } catch (e) {
+            throw e
         }
     }
     public getDatabaseUrl() {
