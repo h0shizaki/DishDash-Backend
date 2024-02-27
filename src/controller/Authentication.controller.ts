@@ -4,6 +4,7 @@ import { AuthService } from "../service/Authentication";
 import { writeErrorJson, writeResponseJson } from "../utils/responseWriter";
 import { User } from "../model/User";
 import { check, encode } from "../utils/encrypt";
+import { generateUserToken } from "../utils/jwt";
 
 
 export class AuthController {
@@ -31,7 +32,8 @@ export class AuthController {
                 const hashedPassword = await encode(password)
                 const user: User = {username, email, password: hashedPassword, gender, firstname, lastname}
                 const result = await this.authService.save(user)
-                return writeResponseJson(res, "success", result)
+                const token = generateUserToken(result)
+                return writeResponseJson(res, "success", {user: result, token})
             }catch(e){
                 if(e instanceof Error){
                     console.error(e.message);
@@ -58,9 +60,9 @@ export class AuthController {
             
             if(userCheck){
                 const isMatchedPassword = await check(password, userCheck.password)
-
                 if(isMatchedPassword){
-                    return writeResponseJson(res, "success", userCheck)
+                    const token = generateUserToken(userCheck)
+                    return writeResponseJson(res, "success", {user:userCheck, token})
 
                 }else{
                     return writeErrorJson(res, "Invalid passowrd", 401)
