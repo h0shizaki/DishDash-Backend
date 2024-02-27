@@ -6,6 +6,7 @@ import { AuthService } from "../../service/Authentication";
 import { User } from "../../model/User";
 import { Gender } from "../../model/Gender";
 import { UserM } from "../../model/UserSchema";
+import Config from "../../config";
 
 const mockUser : User = {
     username: "KAN",
@@ -29,7 +30,9 @@ const authService: AuthService = new AuthService()
 
 beforeAll(async () => {
     try{
-        await mongoose.connect(process.env.TEST_DATABASE_URL as string + "?authSource=admin")
+        const config = new Config()
+        await mongoose.connect(config.getDatabaseUrl())
+        
         await UserM.deleteMany({})
     }catch(e){
         throw e
@@ -106,7 +109,33 @@ test('Should able to update', async () => {
     expect(update?.email).toBe(mockUser2.email)
     expect(update?.firstname).not.toBe(mockUser.firstname)
     expect(update?.firstname).toBe(mockUser2.firstname)
-
-
 })
 
+
+test('should error due to no db connection', async() => {
+    await mongoose.disconnect()
+
+    expect( async () => {
+        await authService.save(mockUser)
+    }).rejects.toThrowError();
+
+    expect( async () => {
+        await authService.findUserWithEmail(mockUser.email)
+    }).rejects.toThrowError();
+
+    expect( async () => {
+        await authService.findUserWithUsername(mockUser.username)
+    }).rejects.toThrowError();
+
+    expect( async () => {
+        await authService.isDuplicate(mockUser)
+    }).rejects.toThrowError();
+
+    expect( async () => {
+        await authService.find("000000000000000000000000")
+    }).rejects.toThrowError();
+    expect( async () => {
+        await authService.update("000000000000000000000000", mockUser2)
+    }).rejects.toThrowError();
+
+})

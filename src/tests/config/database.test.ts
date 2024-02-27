@@ -1,16 +1,11 @@
 import { expect, test } from "vitest";
 import {Database} from "../../config/database";
+import Config from "../../config";
 
 
-test('init config', () => {
-    const db = new Database()
-
+test('test connection', () => {
+    const config = new Config()
+    const db = new Database(config)
+    
     expect(db.getDatabaseUrl()).toBe(process.env.DATABASE_URL as string)
-})
-
-
-test('init config', () => {
-    const db = new Database('localhost:27017')
-
-    expect(db.getDatabaseUrl()).toBe('localhost:27017')
 })

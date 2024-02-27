@@ -18,4 +18,3 @@ export const check = async (content : string, hashedContent :string) => {
         throw err;
     }
 }
-

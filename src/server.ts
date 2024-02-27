@@ -14,7 +14,7 @@ export class Server {
         this.config = new Config();
         this.app = new App() ;
         this.express = this.app.express;
-        this.database = new Database()
+        this.database = new Database(this.config)
     }
 
     public async startServer() {

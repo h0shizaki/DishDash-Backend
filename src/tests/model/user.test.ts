@@ -9,7 +9,7 @@ test('should have the correct properties', () => {
         firstname: 'John',
         lastname: 'Doe',
         password: 'password123',
-        gender: Gender.Male,
+        gender: Gender.MALE,
         interestedCategory: ['Breakfast', 'Dessert']
     };
 

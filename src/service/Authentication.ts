@@ -68,5 +68,4 @@ export class AuthService implements IAuth {
             throw err;
         }
     }
-
 }
