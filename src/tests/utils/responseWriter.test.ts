@@ -5,7 +5,7 @@ import { Response } from 'express'
 
 test('Enable to write success json', () => {
     let mockResponse: MockResponse<any> = createResponse()
-    const data = [{ a: 1, b: 2, foo: 'bar' }]
+    const data =  { user: {id: 1, name: "a"}}
     let res: MockResponse<any> = writeResponseJson(
         mockResponse,
         'success',
@@ -14,8 +14,8 @@ test('Enable to write success json', () => {
     )
 
     expect(res.statusCode).toBe(200)
-    expect(JSON.stringify(res._getJSONData().body.data)).toBe(
-        JSON.stringify(data),
+    expect(JSON.stringify(res._getJSONData().body.user)).toBe(
+        JSON.stringify(data.user),
     )
     expect(res._getJSONData().body.message).toBe('success')
 })

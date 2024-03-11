@@ -37,10 +37,24 @@ export class AuthService implements IAuth {
 
     async update(id: string, user: any): Promise<User | null> {
         const filter = { _id: id }
-        const res = await UserM.findByIdAndUpdate(filter, user, {
-            new: true,
-            upsert: true,
-        })
-        return res
+        const currentUser = await this.find(id)
+        if(!currentUser) throw Error("Can not found user.")
+
+        if(currentUser.username === user.username && currentUser.email === user.email){
+                    
+            const res = await UserM.findByIdAndUpdate(filter, user, {
+                new: true,
+                upsert: true,
+            })
+            return res
+        
+        }else{
+            if (await this.isDuplicate(user)) throw Error('Duplicate User.')
+            const res = await UserM.findByIdAndUpdate(filter, user, {
+                new: true,
+                upsert: true,
+            })
+            return res
+        }
     }
 }

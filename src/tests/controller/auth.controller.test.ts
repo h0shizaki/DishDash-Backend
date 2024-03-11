@@ -79,16 +79,16 @@ test('should register user', async () => {
     expect(response!.statusCode).toBe(200)
     expect(result.body.message).toBe('success')
 
-    expect(result.body.data.user).to.not.null
-    const user = result.body.data.user
+    expect(result.body.user).to.not.null
+    const user = result.body.user
     expect(user.username).toBe(mockUser.username)
     expect(user.email).toBe(mockUser.email)
     expect(user.firstname).toBe(mockUser.firstname)
     expect(user.lastname).toBe(mockUser.lastname)
 
     //verify jwt
-    expect(result.body.data.token).to.not.null
-    const decoded = jwt.verify(result.body.data.token, SECRET)
+    expect(result.body.token).to.not.null
+    const decoded = jwt.verify(result.body.token, SECRET)
     expect(decoded).toEqual(
         expect.objectContaining({
             _id: user._id,
@@ -184,11 +184,11 @@ test('should return success when valid username and password are provided', asyn
     expect(response).to.not.null
     expect(response._getJSONData().body).to.not.null
     expect(response!.statusCode).toBe(200)
-    expect(response._getJSONData().body.data.user).to.not.null
+    expect(response._getJSONData().body.user).to.not.null
 
     //verify jwt
-    const user = response._getJSONData().body.data.user
-    const token = response._getJSONData().body.data.token
+    const user = response._getJSONData().body.user
+    const token = response._getJSONData().body.token
     expect(token).to.not.null
     const decoded = jwt.verify(token, SECRET)
     expect(decoded).toEqual(
@@ -260,7 +260,7 @@ test('should return failed when valid username and password are invalid', async 
         const result = response._getJSONData()
 
         expect(response.body).to.not.null
-        expect(result.body.data).toBe('')
+        expect(result.body.user).toBe(undefined)
         expect(response!.statusCode).toBe(attempt.statusCode)
         expect(result.body.message).toBe(attempt.expectedMessage)
     }

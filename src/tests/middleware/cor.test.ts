@@ -13,7 +13,7 @@ test('Enable cor should inject headers', () => {
     Cor.enableCORS(createRequest(), mockResponse, () => {})
     expect(mockResponse.getHeader('access-control-allow-origin')).toBe('*')
     expect(mockResponse.getHeader('Access-Control-Allow-Methods')).toBe(
-        'GET, POST, DELETE',
+        'GET, POST, PUT, DELETE',
     )
     expect(mockResponse.getHeader('Access-Control-Allow-Headers')).toBe(
         'Content-Type,Authorization',

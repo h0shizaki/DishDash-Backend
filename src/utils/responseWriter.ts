@@ -16,7 +16,7 @@ export function writeResponseJson(
         },
         body: {
             message: message,
-            data: data,
+            ...data,
         },
     }
 
@@ -25,7 +25,7 @@ export function writeResponseJson(
 
 export function writeErrorJson(
     res: Response,
-    message: String,
+    message: string,
     status?: number,
 ) {
     if (status === undefined) status = 500
