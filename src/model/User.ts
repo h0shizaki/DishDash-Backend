@@ -10,4 +10,6 @@ export interface User {
     password: string
     gender: Gender
     interestedCategory?: Array<string>
+    interestedRecipe?: Array<string>
+    uninterestedRecipe?: Array<string>
 }
