@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { User } from '../../model/User'
 export interface IAuth {
     findUserWithEmail(email: string): Promise<User | null>
@@ -7,3 +8,4 @@ export interface IAuth {
     find(id: string): Promise<User | null>
     update(id: string, user: any): Promise<User | null>
 }
+/* v8 ignore stop */

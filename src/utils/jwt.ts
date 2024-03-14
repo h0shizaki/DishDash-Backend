@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import Config from '../config'
 import { User } from '../model/User'
 import jwt, { JwtPayload } from 'jsonwebtoken'
@@ -19,4 +20,12 @@ export const generateUserToken = (user: User): string => {
 export const decoedToken = (token: string): string | JwtPayload => {
     const result = jwt.verify(token, SECRET)
     return result
+}
+
+export  function extractToken (req: Request) {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+        return req.headers.authorization.split(' ')[1];
+    } 
+    
+    return null;
 }

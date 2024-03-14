@@ -1,3 +1,5 @@
+/* v8 ignore start */
+
 import { ObjectId } from 'mongoose'
 import { Gender } from './Gender'
 
@@ -13,3 +15,4 @@ export interface User {
     interestedRecipe?: Array<string>
     uninterestedRecipe?: Array<string>
 }
+/* v8 ignore stop */

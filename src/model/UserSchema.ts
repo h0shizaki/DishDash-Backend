@@ -1,3 +1,5 @@
+/* v8 ignore start */
+
 import { Gender } from './Gender'
 import { User } from './User'
 import { Schema, model } from 'mongoose'
@@ -15,3 +17,4 @@ const UserSchema = new Schema<User>({
 })
 
 export const UserM = model('user', UserSchema)
+/* v8 ignore stop */

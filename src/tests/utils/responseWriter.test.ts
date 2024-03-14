@@ -5,7 +5,7 @@ import { Response } from 'express'
 
 test('Enable to write success json', () => {
     let mockResponse: MockResponse<any> = createResponse()
-    const data =  { user: {id: 1, name: "a"}}
+    const data = { user: { id: 1, name: 'a' } }
     let res: MockResponse<any> = writeResponseJson(
         mockResponse,
         'success',

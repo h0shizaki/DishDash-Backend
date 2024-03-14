@@ -19,8 +19,8 @@ export class AuthController {
         this.router.post('/user', async (req, res) => {
             return await this.register(req, res)
         })
-        this.router.put('/user' , async (req,res) => {
-            return await this.update(req,res)
+        this.router.put('/user', async (req, res) => {
+            return await this.update(req, res)
         })
     }
 
@@ -58,16 +58,16 @@ export class AuthController {
     }
 
     public async update(req: Request, res: Response) {
-        try{
+        try {
             const id = req.body._id
             const user: User = req.body as User
             if (!user || !id) {
                 return writeErrorJson(res, 'Incomplete provided data', 400)
             }
 
-            const result = await this.authService.update(id,user)
+            const result = await this.authService.update(id, user)
             return writeResponseJson(res, 'success', { user: result })
-        }catch(e){
+        } catch (e) {
             if (e instanceof Error) {
                 console.error(e.message)
                 const message = e.message ? e.message : 'Something went wrong.'

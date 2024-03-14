@@ -1,3 +1,5 @@
+/* v8 ignore start */
+
 import { ObjectId } from 'mongoose'
 
 export interface Recipe {
@@ -27,3 +29,4 @@ export interface Recipe {
     RecipeServings: string
     RecipeYield: string
 }
+/* v8 ignore stop */
