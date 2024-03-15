@@ -7,7 +7,7 @@ export interface IBookMark {
     find(id: string): Promise<Bookmark | null>
     save(user: Bookmark): Promise<Bookmark>
     update(id: string, bookmark: Bookmark): Promise<Bookmark | null>
-    appendRecord(id: string, record: Record): Promise<Bookmark | null>
-    removeRecord(id: string, record: Record): Promise<Bookmark | null>
+    appendRecord(id: string, record: Record): Promise<boolean | null>
+    removeRecord(id: string, recordId: string): Promise<boolean | null>
 }
 /* v8 ignore stop */

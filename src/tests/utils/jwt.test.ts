@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { expect, test } from 'vitest'
-import { decoedToken, extractToken, generateUserToken } from '../../utils/jwt'
+import { decodeToken, extractToken, generateUserToken } from '../../utils/jwt'
 import { User } from '../../model/User'
 import { Gender } from '../../model/Gender'
 import Config from '../../config'
@@ -42,7 +42,7 @@ test('should include an expiration time of 7 days', () => {
 
 test('should decode a valid JWT token', () => {
     const token = generateUserToken(user)
-    const decoded = decoedToken(token)
+    const decoded = decodeToken(token)
     expect(decoded).toEqual(
         expect.objectContaining({
             _id: user._id,
@@ -54,7 +54,7 @@ test('should decode a valid JWT token', () => {
 
 test('should throw an error for an invalid JWT token', () => {
     const invalidToken = 'invalid_token'
-    expect(() => decoedToken(invalidToken)).toThrow()
+    expect(() => decodeToken(invalidToken)).toThrow()
 })
 
 test('should extract token from authorization header', () => {

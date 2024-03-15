@@ -1,17 +1,17 @@
 /* v8 ignore start */
 
-import { ObjectId } from 'mongoose'
+import { ObjectId, Types } from 'mongoose'
 
 export interface Bookmark {
-    _id?: string | ObjectId
-    userId: string
-    recipes: Array<Record>
+    _id?: string | Types.ObjectId 
+    userId: Types.ObjectId | string| ObjectId
+    records: Array<Record>
     title: string
     thumbnail?: string
 }
 
 export interface Record {
-    recipeId: string
+    recipe: Types.ObjectId 
     rating: number
 }
 /* v8 ignore stop */

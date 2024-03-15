@@ -29,14 +29,12 @@ const mockUser2: User = {
 const authService: AuthService = new AuthService()
 
 beforeAll(async () => {
-    try {
-        const config = new Config()
-        await mongoose.connect(config.getDatabaseUrl())
 
-        await UserM.deleteMany({})
-    } catch (e) {
-        throw e
-    }
+    const config = new Config()
+    await mongoose.connect(config.getDatabaseUrl())
+
+    await UserM.deleteMany({})
+
 })
 
 test('Should create user', async () => {

@@ -1,10 +1,10 @@
 /* v8 ignore start */
 
-import { ObjectId } from 'mongoose'
+import { Types } from 'mongoose'
 import { Gender } from './Gender'
 
 export interface User {
-    _id?: string | ObjectId
+    _id?: string | Types.ObjectId
     username: string
     email: string
     firstname: string
