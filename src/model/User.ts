@@ -13,6 +13,6 @@ export interface User {
     gender: Gender
     interestedCategory?: Array<string>
     interestedRecipe?: Array<string>
-    uninterestedRecipe?: Array<string>
+    uninterestedCategory?: Array<string>
 }
 /* v8 ignore stop */

@@ -13,7 +13,7 @@ const UserSchema = new Schema<User>({
     gender: { type: String, enum: Gender, required: true },
     interestedCategory: { type: Array<string>, required: true },
     interestedRecipe: { type: Array<string>, required: true },
-    uninterestedRecipe: { type: Array<string>, required: true },
+    uninterestedCategory: { type: Array<string>, required: true },
 })
 
 export const UserM = model('user', UserSchema)
