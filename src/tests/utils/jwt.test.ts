@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { expect, test } from 'vitest'
-import { decoedToken, generateUserToken } from '../../utils/jwt'
+import { decodeToken, extractToken, generateUserToken } from '../../utils/jwt'
 import { User } from '../../model/User'
 import { Gender } from '../../model/Gender'
 import Config from '../../config'
+import { MockRequest, createRequest } from 'node-mocks-http'
 
 const SECRET = new Config().getJwtSecret()
 
@@ -41,7 +42,7 @@ test('should include an expiration time of 7 days', () => {
 
 test('should decode a valid JWT token', () => {
     const token = generateUserToken(user)
-    const decoded = decoedToken(token)
+    const decoded = decodeToken(token)
     expect(decoded).toEqual(
         expect.objectContaining({
             _id: user._id,
@@ -53,5 +54,25 @@ test('should decode a valid JWT token', () => {
 
 test('should throw an error for an invalid JWT token', () => {
     const invalidToken = 'invalid_token'
-    expect(() => decoedToken(invalidToken)).toThrow()
+    expect(() => decodeToken(invalidToken)).toThrow()
 })
+
+test('should extract token from authorization header', () => {
+    const req = createRequest({headers: {
+        'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTdlNTA3YzFhOWI2NmQ4NTQ3NjQiLCJlbWFpbCI6Imthbl9rQGF0b21pYy5hYy50aCIsInVzZXJuYW1lIjoiQXRvbWxhbnRpcyIsImlhdCI6MTcxMDQzOTQxNCwiZXhwIjoxNzExMDQ0MjE0fQ.uLRHjlkHOG0ltjKc1EVv3_Cs2bY7S3S4N390JlwUSJY'
+    }});
+
+    const token = extractToken(req);
+    expect(token).toEqual('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYwMTdlNTA3YzFhOWI2NmQ4NTQ3NjQiLCJlbWFpbCI6Imthbl9rQGF0b21pYy5hYy50aCIsInVzZXJuYW1lIjoiQXRvbWxhbnRpcyIsImlhdCI6MTcxMDQzOTQxNCwiZXhwIjoxNzExMDQ0MjE0fQ.uLRHjlkHOG0ltjKc1EVv3_Cs2bY7S3S4N390JlwUSJY');
+});
+
+
+
+test('should return null if token is not found', () => {
+    const req = createRequest({headers: {
+        'authorization': ''
+    }});
+
+    const token = extractToken(req);
+    expect(token).toBeNull();
+});

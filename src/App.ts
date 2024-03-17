@@ -1,16 +1,20 @@
 import express, { Application, Request, Response } from 'express'
 import cor from './middleware/cor'
 import { AuthController } from './controller/Authentication.controller'
+import { BookmarkController } from './controller/Bookmark.controller'
+
 class App {
     public express: Application
     public authController: AuthController
+    public bookmarkController: BookmarkController
     constructor() {
         this.express = express()
         this.express.use(express.urlencoded({ extended: false }))
+        this.express.use(cor.enableCORS) 
         this.express.use(express.json())
-        this.express.use(cor.enableCORS)
         this.express.enable('trust proxy')
         this.authController = new AuthController()
+        this.bookmarkController = new BookmarkController()
         this.loadRoutes()
     }
 
@@ -21,7 +25,8 @@ class App {
         })
 
         router.use('/api/auth', this.authController.getRouter())
-
+        router.use('/api/bookmark',  this.bookmarkController.getRouter())
+        
         router.use('*', (req: Request, res: Response) => {
             return res.status(404).send('404 not found')
         })
