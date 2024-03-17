@@ -11,6 +11,7 @@ export interface Bookmark {
 }
 
 export interface Record {
+    _id?: string | Types.ObjectId 
     recipe: Types.ObjectId 
     rating: number
 }

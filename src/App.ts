@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express'
 import cor from './middleware/cor'
 import { AuthController } from './controller/Authentication.controller'
 import { BookmarkController } from './controller/Bookmark.controller'
