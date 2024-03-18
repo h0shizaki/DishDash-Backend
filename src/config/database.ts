@@ -1,18 +1,18 @@
-import "dotenv/config"
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
+import Config from '.'
 
 export class Database {
-    databaseUrl : string;
-    constructor(dataUrl?: string) {
-        this.databaseUrl = dataUrl || process.env.DATABASE_URL as string || '' 
+    private databaseUrl: string
+    constructor(config: Config) {
+        this.databaseUrl = config.getDatabaseUrl()
     }
 
     public async connect() {
-        try{
-            await mongoose.connect(this.databaseUrl + "?authSource=admin")
-            console.log("Connected To Database");
-        }catch(e){
-            throw e;
+        try {
+            await mongoose.connect(this.databaseUrl)
+            console.log('Connected To Database')
+        } catch (e) {
+            throw e
         }
     }
     public getDatabaseUrl() {

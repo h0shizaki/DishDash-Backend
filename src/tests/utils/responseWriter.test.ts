@@ -1,31 +1,37 @@
-import { Response } from "express";
-import { createResponse} from 'node-mocks-http';
+import { MockResponse, createResponse } from 'node-mocks-http'
 import { expect, test } from 'vitest'
-import { writeResponseJson , writeErrorJson } from "../../utils/responseWriter";
+import { writeResponseJson, writeErrorJson } from '../../utils/responseWriter'
+import { Response } from 'express'
 
-
-test('Enable to write success json' , () => {
-    let mockResponse = createResponse()
-    const data = [{a: 1, b:2, foo:"bar"}]
-    let res: Response = writeResponseJson(mockResponse, "success", data , 200)
+test('Enable to write success json', () => {
+    let mockResponse: MockResponse<any> = createResponse()
+    const data = { user: { id: 1, name: 'a' } }
+    let res: MockResponse<any> = writeResponseJson(
+        mockResponse,
+        'success',
+        data,
+        200,
+    )
 
     expect(res.statusCode).toBe(200)
-    expect(JSON.stringify(res._getJSONData().body.data)).toBe(JSON.stringify(data))
-    expect(res._getJSONData().body.message).toBe("success")
+    expect(JSON.stringify(res._getJSONData().body.user)).toBe(
+        JSON.stringify(data.user),
+    )
+    expect(res._getJSONData().body.message).toBe('success')
 })
 
-test('Enable to write error' , () => {
+test('Enable to write error', () => {
     let mockResponse = createResponse()
-    let res: Response = writeErrorJson(mockResponse, "Fail")
+    let res: MockResponse<any> = writeErrorJson(mockResponse, 'Fail')
 
     expect(res.statusCode).toBe(500)
-    expect(res._getJSONData().body.message).toBe("Fail")
+    expect(res._getJSONData().body.message).toBe('Fail')
 })
 
-test('Enable to write error 403' , () => {
+test('Enable to write error 403', () => {
     let mockResponse = createResponse()
-    let res: Response = writeErrorJson(mockResponse, "Fail", 403)
+    let res: MockResponse<any> = writeErrorJson(mockResponse, 'Fail', 403)
 
     expect(res.statusCode).toBe(403)
-    expect(res._getJSONData().body.message).toBe("Fail")
+    expect(res._getJSONData().body.message).toBe('Fail')
 })
