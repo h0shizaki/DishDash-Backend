@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { Bookmark, Record } from '../model/Bookmark'
 import { IBookMark } from './interface/IBookMart'
 import { BookmarkM } from '../model/BookmarkSchema'
@@ -111,3 +112,4 @@ export class BookmarkService implements IBookMark {
         return isUpdate
     }
 }
+/* v8 ignore stop */

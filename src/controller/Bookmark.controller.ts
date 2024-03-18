@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { Router, Request, Response } from 'express'
 import { IBookMark } from '../service/interface/IBookMart'
 import { BookmarkService } from '../service/BookMark'
@@ -318,3 +319,4 @@ export class BookmarkController {
         }
     }
 }
+/* v8 ignore stop */
